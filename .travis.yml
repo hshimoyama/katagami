@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+  - 2.2.7
+  - 2.3.4
+  - 2.4.1
+notifications:
+  email: false
+script:
+  - bundle exec rake db:create DATABASE_ENV=test
+  - bundle exec rake db:migrate DATABASE_ENV=test RAILS_VERSION=5.1
+  - bundle exec rspec
+services:
+  - mysql
