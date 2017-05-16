@@ -18,7 +18,7 @@ Or install it yourself as:
 
     $ gem install katagami
 
-## Examples
+## Form field definitions
 
 Katagami provides 3 way of form field definitions.
 
@@ -39,6 +39,7 @@ end
 
 ```rb
 class UserForm
+  include Katagami
   fields_for User
 end
 
@@ -50,6 +51,7 @@ fields_for provides `only` and `excludes` options.
 
 ```rb
 class UserForm
+  include Katagami
   fields_for User, only: :name
 end
 
@@ -58,6 +60,7 @@ UserForm.field_names # => [:name]
 
 ```rb
 class UserForm
+  include Katagami
   fields_for User, excludes: :name
 end
 
@@ -70,6 +73,7 @@ syntax sugar of `fields_for` with `only` option.
 
 ```rb
 class UserForm
+  include Katagami
   field :name, :email, for: User
 end
 UserForm.field_names # => [:name, :email]
@@ -78,12 +82,38 @@ UserForm.field_names # => [:name, :email]
 ### Define a field. (`field` with a Class as a field type)
 
 ```rb
-class UserForm
+class AuthForm
+  include Katagami
+  field :password, for: Auth
   field :password_confirm, String
 end
 ```
 
-TBD
+## Nested Form association
+
+```rb
+class ChildForm
+  include Katagami
+  field :name, String
+  validates :name, presence: true
+end
+
+class ParentForm
+  include Katagami
+  field :name, String
+  field :child, ChildForm, default: {}
+  validates :name, presence: true
+end
+
+# associate fields
+ParentForm.field_names # => [:name, { child: [:name] }]
+
+# associate validation errors
+form = ParentForm.new
+form.valid? # => false
+form.errors.messages
+# => {name: ["can't be blank"], child: [{name: ["can't be blank"]}]}
+```
 
 ## Contributing
 
