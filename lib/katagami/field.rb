@@ -1,4 +1,5 @@
 require "axiom.rb"
+require "active_support/time_with_zone"
 require "katagami/field/field_option_parser"
 
 module Katagami
