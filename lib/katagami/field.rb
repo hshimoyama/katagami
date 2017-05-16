@@ -45,7 +45,7 @@ module Katagami
       end
 
       def for_model?(options)
-        options.instance_of?(Hash) && options&.keys&.include?(:for)
+        options.instance_of?(Hash) && options.try!(:keys).try!(:include?, :for)
       end
 
       def field_for_model(field_name, options)
