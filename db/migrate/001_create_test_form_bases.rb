@@ -1,6 +1,5 @@
-class CreateTestFormBases < ActiveRecord::Migration[ENV["RAILS_VERSION"]]
+class CreateTestFormBases < ActiveRecord::Migration[ActiveRecord.version.version.split('.')[0..1].join('.')]
   def change
-    puts "here"
     create_table :test_form_bases do |t|
       t.integer :integer_field
       t.string :string_field

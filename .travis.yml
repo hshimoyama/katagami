@@ -3,11 +3,14 @@ rvm:
   - 2.2.7
   - 2.3.4
   - 2.4.1
+gemfile:
+  - gemfiles/rails_4_2.gemfile
+  - gemfiles/rails_5_0.gemfile
 notifications:
   email: false
 script:
   - bundle exec rake db:create DATABASE_ENV=test
-  - bundle exec rake db:migrate DATABASE_ENV=test RAILS_VERSION=5.1
+  - bundle exec rake db:migrate DATABASE_ENV=test
   - bundle exec rspec
 services:
   - mysql

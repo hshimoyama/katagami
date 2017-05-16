@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+
+gem 'axiom'
+gem 'virtus'
+gem 'activesupport', "~> 4.2.0"
+gem 'activemodel', "~> 4.2.0"
+
+gemspec :path => '../'
